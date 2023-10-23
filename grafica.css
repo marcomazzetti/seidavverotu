@@ -1,0 +1,46 @@
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+h1 {
+    font-size: 6vw;
+    text-transform: uppercase;
+    margin: 0;
+}
+p {
+    margin: 0;
+    font-size: 1rem;
+}
+.check-word {
+    font-size: 2rem;
+}
+input {
+    background: inherit;
+    color: inherit;
+    border: 2px solid white;
+    border-radius: 2rem;
+    font-size: 2rem;
+    padding: .5rem 1rem;
+    width: 50%;
+}
+input[disabled] {
+    background: green;
+}
+body {
+    background: rgb(144, 0, 255);
+    margin: 0;
+    color: rgb(0, 179, 255);
+    font-family: Arial, Helvetica, sans-serif;
+}
+.nav-link {
+color:rgb(29, 227, 52);
+/*background-color:rgb(184, 225, 18);
+*/
+}
+
+/* .nav-item {
+color:rgb(29, 227, 52);
+} */
