@@ -41,7 +41,8 @@ if (checkWord) {
 
 
 // Quando si preme il pulsante "Scrivi",
-document.querySelector('#scrivi').addEventListener('click', () => {
+document.querySelector('#clicca').addEventListener('click', () => {
   // Apri la pagina HTML
-  window.location = 'scrivi.html';
+  alert("Ciao!")
+  /*window.location = 'verifica.php';*/
 });

@@ -8,5 +8,5 @@
         <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
         <li><a href="#" id="scrivi" class="nav-link px-2">Scrivi</a></li>
         <li><a href="verifica.html" class="nav-link px-2">Verifica</a></li>
-        <li><a href="#" class="nav-link px-2">Informazioni</a></li>
+        <li><a href="#" class="nav-link px-2">Contatti</a></li>
       </ul>
