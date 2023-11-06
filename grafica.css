@@ -14,7 +14,7 @@ p {
     margin: 0;
     font-size: 1rem;
 }
-.check-word {
+#check-word {
     font-size: 2rem;
 }
 input {
