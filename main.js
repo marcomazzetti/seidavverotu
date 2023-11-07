@@ -40,7 +40,7 @@ if (checkWord) {
 }
 
 
-// Quando si preme il pulsante "Scrivi",
+// Quando si preme il bottone "Cliccami!",
 document.querySelector('#clicca').addEventListener('click', () => {
   // Apri la pagina HTML
   alert("Ciao!")

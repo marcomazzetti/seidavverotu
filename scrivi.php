@@ -14,7 +14,10 @@
 
     <!-- inizio con gli header, cioè i titoletti in alto su cui devo ricordarmi di fare interagire cliccandoci sopra-->
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-      <?php include 'menu.inc.php'; ?>
+      <?php
+      $curr_page = "scrivi"; 
+       include 'menu.inc.php'; 
+       ?>
     </header>
 
     <!-- la parte centrale-->

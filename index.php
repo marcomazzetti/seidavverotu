@@ -14,7 +14,10 @@
 
     <!-- inizio con gli header, cioè i titoletti in alto su cui devo ricordarmi di fare interagire cliccandoci sopra-->
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-      <?php include 'menu.inc.php'; ?>
+      <?php
+        $curr_page = "index"; 
+        include 'menu.inc.php'; 
+      ?>
 
     </header>
 
@@ -28,15 +31,9 @@
     <!-- la parte finale-->
     <div class="container">
       <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <p class="col-md-4 mb-0 text-body-secondary">© 2023 Company, Inc</p>
-    
-        
-        <ul class="nav col-md-8 justify-content-end">
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-          <li class="nav-item"><a href="scrivi.php" class="nav-link px-2 text-body-secondary">Scrivi</a></li>
-          <li class="nav-item"><a href="verifica.php" class="nav-link px-2 text-body-secondary">Verifica</a></li>
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Informazioni</a></li>
-        </ul>
+        <?php 
+          include 'menu.footer.php';
+        ?>
       </footer>
     </div>
     
