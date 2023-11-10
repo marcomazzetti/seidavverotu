@@ -27,8 +27,7 @@
     <h1>Sei davvero tu?</h1>
 
     <p> "Sei davvero tu?" è un'applicazione che vuole testare se sei davvero tu a scrivere in base alla velocità con cui scrivi.<br>
-
-    </p>
+      Qua ci dovrò aggiungere una spiegazione di come funziona. </p>
   </div>
 
   <!-- la parte finale-->
