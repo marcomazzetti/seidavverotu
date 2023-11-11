@@ -24,8 +24,8 @@
   <!-- la parte centrale-->
   <div class="container centro">
     <h1>Sei davvero tu?</h1>
-
-    <p>Scrivi! Inserisci la frase:</p>
+    <p> In questa sezione dovrai scrivere una frase. Se ti capita di sbagliare a scrivere, premi il pulsante "Reset" e ricomincia da capo. </p>
+    <p> Inserisci la frase:</p>
     <p id="check-word"></p>
     <input type="text" id="check-input" />
 
