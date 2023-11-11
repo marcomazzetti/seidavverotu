@@ -16,7 +16,7 @@ const checkWord = document.querySelector('#check-word');
 
 //seleziono una frase random dall'array e la "inserisco" in html
 const frasee = frasi[Math.floor(Math.random() * frasi.length)].toLowerCase();
-checkWord.innerHTML = frasee;
+checkWord.innerHTML = "cane";
 
 //qui inizio a concentrarmi su cosa scrive l'utente
 let checkInput = document.querySelector('#check-input');
@@ -25,7 +25,7 @@ const resetButton = document.querySelector('#reset');
 
 let firstInput, lastInput, diffArray = []; //dichiaro 3 variabili
 
-checkInput.onkeydown = (e) => {    
+checkInput.onkeydown = (e) => {
   if (e.keyCode === 8 || e.keyCode === 46) { //così facendo l'utente non può cancellare
     e.preventDefault();
   }
@@ -52,8 +52,18 @@ checkInput.onkeyup = (e) => {    //ogni volta che viene rilasciato un tasto
     for (const key of Object.keys(diffArray)) {
       somma += diffArray[key].diff;
     }
-    let media = somma/ (diffArray.length - 1);
-    console.log("La media in secondi è : " + media/1000 + "s");
+    let media = somma / (diffArray.length - 1);
+    console.log("La media in secondi è : " + media / 1000 + "s");
+
+    let sommatoria_varianza = 0 ;
+    diffArray.shift() //questo per eliminare il primo elemento dell'array (la prima lettera che premo ha diff 0 e ciò mi fa sbagliare il calcolo della varianza)
+    for (const key of Object.keys(diffArray)) {
+      sommatoria_varianza += (diffArray[key].diff - media) ** 2;
+      console.log(sommatoria_varianza);
+    }
+    let varianza = sommatoria_varianza / (diffArray.length);
+    console.log("La varianza in secondi al quadrato è : " + varianza / 1000000 + " s^2");
+
   }
 }
 // Quando si preme il bottone "Cliccami!",
@@ -62,7 +72,7 @@ resetButton.addEventListener('click', () => {
   checkInput.value = '';
   firstInput = null
 
-  /*window.location = 'verifica.php';*/
-});
+    /*window.location = 'verifica.php';*/
+})
 
-//adesso devo iniziare a ragionare sull'array per poter fare la media
+//PROBLEMA ENORME! METTENDO onkeyup se premo più cose insieme non me le becca!!!!!!
