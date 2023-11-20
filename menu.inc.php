@@ -16,5 +16,5 @@
   <li><a href="verifica.php" class="nav-link px-2  <?php if ($curr_page == "verifica") {
                                                       echo "link-secondary";
                                                     } ?>">Verifica</a></li>
-  <li><a href="#" class="nav-link px-2">Contatti</a></li>
+  <li><a href="inviadati.html" class="nav-link px-2">Contatti</a></li>
 </ul>

@@ -5,7 +5,6 @@
     gap: 2rem;
 }
 .centro{
-    height: 70vh;
 }
 h1 {
     font-size: 6vw;
@@ -19,6 +18,7 @@ p {
 #check-word {
     font-size: 2rem;
 }
+
 input {
     background: inherit;
     color: inherit;
@@ -29,7 +29,6 @@ input {
     width: 50%;
 }
 input[disabled] {
-    background: green;
 }
 body {
     background: rgb(144, 0, 255);
