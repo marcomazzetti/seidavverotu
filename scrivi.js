@@ -64,7 +64,7 @@ checkInput.oninput = (e) => {    //ogni volta che viene modificato il testo
     resetButton.disabled = false;
   }
   const diff = e.timeStamp - lastInput; //calcola differenza di tempo tra la pressione del tasto corrente e la pressione del tasto precedente
-  diffArray.push({ timeStamp: e.timeStamp, diff, key: e.data }); //aggiunge  l'oggetto che contiene le informazioni sulla pressione del tasto corrente all'array diffArray.
+  diffArray.push({ diff, key: e.data }); //aggiunge  l'oggetto che contiene le informazioni sulla pressione del tasto corrente all'array diffArray.
   console.log("La differenza in secondi è : " + diff / 1000 + "s", diffArray);
   lastInput = e.timeStamp; //aggiorno la variabile last input al timestamp corrente
   console.log("checkInput: ", checkInput.value);
@@ -117,8 +117,6 @@ checkInput.oninput = (e) => {    //ogni volta che viene modificato il testo
 
   }
 }
-$dati = $_POST['dati'];
-$diffArray = json_decode($dati, true);
 
 // Quando si preme il bottone "Reset!",
 resetButton.addEventListener('click', () => {
@@ -131,6 +129,26 @@ resetButton.addEventListener('click', () => {
   /*window.location = 'verifica.php';*/
 })
 
+proseguiButton.addEventListener('click', () => {
+  let nome = nomeUtente.value;
+  let dati = diffArray;
+  async function postData(url = "", data = {}) {
+    const response = await fetch(url, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({nome : data.nome, dati : JSON.stringify(data.dati) }), // body data type must match "Content-Type" header
+    });
+    return response.text(); // parses JSON response into native JavaScript objects
+  }
+
+  postData("inseriscidati.php", { nome: nome, dati:dati }).then((data) => {
+    alert(data); // JSON data parsed by `data.json()` call
+  });
+
+
+})
 
 function levenshtein(s, t) {
   if (s === t) {

@@ -13,39 +13,8 @@
 
 <body>
 
-<?php
-
-// Connessione al database
-
-$connessione = mysqli_connect("localhost", "root", "root", "seidavverotu");
-
-// Recupero i dati dal form
-$nome = $_POST['nome'];
-$dati = $_POST['dati'];
-$timestamp = date("Y-m-d H:i:s");
-
-$diffArray = json_decode($dati, true);
 
 
-// Query SQL per l'inserimento dei dati
-$query = "INSERT INTO misurazioni (utente, dati, timestamp) VALUES ('$nome', '$dati', '$timestamp');";
-
-// Esecuzione della query
-$risultato = mysqli_query($connessione, $query);
-
-// Controllo del risultato
-/*
-if ($risultato) {
-    echo "Inserimento avvenuto correttamente";
-} else {
-    echo "Inserimento non eseguito";
-}
-*/
-
-// Chiusura della connessione
-mysqli_close($connessione);
-
-?>
 
   <!-- inizio con gli header, cioè i titoletti in alto su cui devo ricordarmi di fare interagire cliccandoci sopra-->
   <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -58,7 +27,7 @@ mysqli_close($connessione);
   <!-- la parte centrale-->
   <div class="container centro">
   <form action="" method="post">
-    <h1>Sei davvero tu?</h1> <p> Scrivi qui il tuo nome:  </p> <input type="text" name="nome" id="nome">
+    <h1>Sei davvero tu?</h1> <p> Scrivi qui il tuo nome:  </p> <input type="text" name="nome" id="nome" value="Marco">
     <!--
     <button type="button" id="conferma-nome" >Conferma</button>
 -->
@@ -69,7 +38,7 @@ mysqli_close($connessione);
     <input type="text" id="check-input" />
 
     <button type="button" id="reset"> Reset </button> <br> <br>
-    <button type = "submit" id="prosegui"> Prosegui </button>
+    <button type = "button" id="prosegui"> Prosegui </button>
   </form>
   </div>
 
