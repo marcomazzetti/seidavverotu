@@ -4,36 +4,36 @@ const frasi = [
   "Meglio tardi che mai",
   "Tanto va la gatta al lardo che ci lascia lo zampino",
   "Ogni medaglia ha il suo rovescio",
-  "L'appetito vien mangiando",
+  //"L'appetito vien mangiando",
   "In bocca al lupo",
   "Ogni morte fa un erede",
   "Piove sul bagnato",
   "Chi troppo vuole, nulla stringe",
-  "Non c'è due senza tre",
+  //"Non c'è due senza tre",
   "La vita è un viaggio pieno di sfide e opportunità, ma è importante ricordare che ogni esperienza ci arricchisce e ci rende più forti.",
-  "L'amore è una forza potente che può trasformare il mondo, ma è importante ricordare che deve essere basato sul rispetto e sulla reciprocità.",
+  //"L'amore è una forza potente che può trasformare il mondo, ma è importante ricordare che deve essere basato sul rispetto e sulla reciprocità.",
   "La conoscenza è la chiave per la comprensione e la crescita personale, ma è importante ricordare che deve essere utilizzata per migliorare il mondo.",
   "La speranza è la luce che ci guida nel buio, ma è importante ricordare che deve essere accompagnata da azioni concrete.",
-  "La felicità è uno stato d'animo che possiamo coltivare ogni giorno, ma è importante ricordare che dipende da noi.",
+  //"La felicità è uno stato d'animo che possiamo coltivare ogni giorno, ma è importante ricordare che dipende da noi.",
   "La pazienza è una virtù preziosa che ci aiuta a raggiungere i nostri obiettivi, ma è importante ricordare che non deve essere sinonimo di rassegnazione.",
   "La gentilezza è un gesto semplice che può fare la differenza nel mondo, ma è importante ricordare che deve essere sincera.",
   "La compassione è la capacità di comprendere e condividere il dolore degli altri, ma è importante ricordare che deve essere accompagnata da azioni concrete.",
-  "La giustizia è il fondamento di una società civile e giusta, ma è importante ricordare che deve essere basata sull'uguaglianza e sul rispetto dei diritti umani.",
+  //"La giustizia è il fondamento di una società civile e giusta, ma è importante ricordare che deve essere basata sull'uguaglianza e sul rispetto dei diritti umani.",
   "La libertà è un diritto inalienabile di tutti gli esseri umani, ma è importante ricordare che deve essere esercitata con responsabilità.",
-  "L'uguaglianza è la base di una società giusta e equa, ma è importante ricordare che deve essere basata sul rispetto delle differenze.",
-  "La pace è l'obiettivo di tutti gli esseri umani, ma è importante ricordare che deve essere costruita con impegno e determinazione.",
+  //"L'uguaglianza è la base di una società giusta e equa, ma è importante ricordare che deve essere basata sul rispetto delle differenze.",
+  //"La pace è l'obiettivo di tutti gli esseri umani, ma è importante ricordare che deve essere costruita con impegno e determinazione.",
   "La speranza è la forza che ci spinge a continuare a lottare per un mondo migliore, ma è importante ricordare che deve essere accompagnata dalla consapevolezza che il cambiamento richiede tempo e impegno.",
   "La fede è la luce che ci illumina nei momenti di oscurità, ma è importante ricordare che deve essere basata sulla ragione e sulla logica.",
-  "L'amore è la forza più potente che esiste, ed è la base di tutte le relazioni sane.",
+  //"L'amore è la forza più potente che esiste, ed è la base di tutte le relazioni sane.",
   "La vita è un dono prezioso che dobbiamo apprezzare e vivere appieno, ed è importante ricordare che il tempo è prezioso e non va sprecato.",
   "Il mondo è un posto meraviglioso pieno di bellezza e di meraviglie, ed è importante ricordare che dobbiamo proteggerlo e rispettarlo.",
-  "L'universo è infinito e pieno di misteri, ed è importante ricordare che siamo solo una piccola parte di un grande disegno.",
-  "L'intelligenza artificiale ha il potenziale di cambiare il mondo in modo positivo, ma è importante ricordare che deve essere utilizzata in modo responsabile e etico.",
+  //"L'universo è infinito e pieno di misteri, ed è importante ricordare che siamo solo una piccola parte di un grande disegno.",
+  //"L'intelligenza artificiale ha il potenziale di cambiare il mondo in modo positivo, ma è importante ricordare che deve essere utilizzata in modo responsabile e etico.",
   "Il cambiamento climatico è una minaccia globale che dobbiamo affrontare con urgenza, ed è importante ricordare che dobbiamo agire ora per evitare le conseguenze più gravi.",
   "La diseguaglianza è un problema globale che dobbiamo risolvere per costruire un mondo più giusto e sostenibile, ed è importante ricordare che dobbiamo agire tutti insieme.",
   "La violenza è una piaga che deve essere fermata e condannata, ed è importante ricordare che dobbiamo promuovere la pace e la non violenza.",
   "La guerra è un male che deve essere evitato e prevenuto, ed è importante ricordare che dobbiamo costruire un mondo basato sulla pace e sulla cooperazione.",
-  "La pace è l'obiettivo di tutti gli esseri umani, ed è importante ricordare che dobbiamo lavorare insieme per costruirla."
+  //"La pace è l'obiettivo di tutti gli esseri umani, ed è importante ricordare che dobbiamo lavorare insieme per costruirla."
 ];
 
 
@@ -138,12 +138,12 @@ proseguiButton.addEventListener('click', () => {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: new URLSearchParams({nome : data.nome, dati : JSON.stringify(data.dati) }), // body data type must match "Content-Type" header
+      body: new URLSearchParams({ nome: data.nome, dati: JSON.stringify(data.dati) }), // body data type must match "Content-Type" header
     });
     return response.text(); // parses JSON response into native JavaScript objects
   }
 
-  postData("inseriscidati.php", { nome: nome, dati:dati }).then((data) => {
+  postData("inseriscidati.php", { nome: nome, dati: dati }).then((data) => {
     alert(data); // JSON data parsed by `data.json()` call
   });
 

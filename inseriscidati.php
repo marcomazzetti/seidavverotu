@@ -2,7 +2,7 @@
 
 // Connessione al database
 
-$connessione = mysqli_connect("localhost", "root", "root", "seidavverotu");
+$database = mysqli_connect("localhost", "root", "root", "seidavverotu");
 
 // Recupero i dati dal form
 $nome = $_POST['nome'];
@@ -11,16 +11,23 @@ $timestamp = date("Y-m-d H:i:s");
 
 
 // Query SQL per l'inserimento dei dati in misurazioni
+// Questa parte si bugga con gli apostrofi nelle frasi: non mi inserisce i dati in misurazioni, ma li inserisce/ modifica in utenti.
 $query = "INSERT INTO misurazioni (utente, dati, timestamp) VALUES ('$nome', '$dati', '$timestamp');";
 
 // Esecuzione della query
-$risultato = mysqli_query($connessione, $query);
+$risultato = mysqli_query($database, $query);
 
 // Controllo del risultato
 if ($risultato) {
     echo "Inserimento avvenuto correttamente";
 } else {
     echo "Inserimento non eseguito";
+}
+
+$errore = mysqli_error($database);
+
+if ($errore) {
+    echo "Errore: $errore";
 }
 
 // Calcolo della media e della varianza
@@ -65,8 +72,10 @@ function insertOrReplaceUtente($nome, $media, $varianza, $counter)
     if ($nome_in_utenti == 0) {
         // $nome non esiste già nella tabella, quindi inseriscilo
         insertUtente($nome, $media, $varianza, $counter);
+        echo "inserisci";
     } else {
         // $nome esiste già nella tabella, quindi fai il replace
+        echo "modifica";
         replaceUtente($nome, $media, $varianza, $counter);
     }
 
@@ -84,25 +93,35 @@ function insertUtente($nome, $media, $varianza, $counter)
 
 function replaceUtente($nome, $media, $varianza, $counter)
 {
+    $database = mysqli_connect("localhost", "root", "root", "seidavverotu");
+    $q_estrapolazione = "SELECT media, varianza, numero_campioni FROM utenti WHERE nome_utente = '$nome'";
+    $result = $database->query($q_estrapolazione);
+    $dati_utente = $result->fetch_assoc();
+    $media_database = $dati_utente['media'];
+    $varianza_database = $dati_utente['varianza'];
+    $numero_campioni_database = $dati_utente['numero_campioni'];
+
+    $nuova_media = ($media_database * $numero_campioni_database +$media*$counter)/($numero_campioni_database + $counter);
+    $nuova_varianza = ($varianza_database * $numero_campioni_database +$varianza*$counter)/($numero_campioni_database + $counter);
+    $nuovo_numero_campioni = $numero_campioni_database + $counter;
+
     $sql = "UPDATE utenti
-            SET media = '$media', varianza = '$varianza', numero_campioni = '$counter'
+            SET
+             media = $nuova_media,
+              varianza = $nuova_varianza,
+               numero_campioni = $nuovo_numero_campioni
             WHERE nome_utente = '$nome';";
+            //UPDATE seidavverotu.utenti set media = media * 0.3 + 100 * 0.7 WHERE nome_utente = 'Marco';
 
     $mysqli = new mysqli("localhost", "root", "root", "seidavverotu");
     $mysqli->query($sql);
+    echo "devo fare replace!";
 }
 // Inserimento o sostituzione delle informazioni dell'utente nella tabella "utenti"
 insertOrReplaceUtente($nome, $media, $varianza, $counter);
 
-/*
-Carica i dati facendo il parsing del json [$nuovidati =json_decode($dati)], dai nuovi dati estrapolo media e varianza,
-poi faccio una replace dentro la tabella utente per nome, media e varianza, numero_campioni (numero lettere).
-Altra pagina analoga "inviadati2.html" dove invio i dati a verificadati.php che estrae nome utente, media e varianza analizzando
-i dati e poi confronta media e varianza con quelle presenti nel database.
-*/
-
 // Chiusura della connessione
-mysqli_close($connessione);
+mysqli_close($database);
 
 
 
