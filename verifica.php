@@ -24,7 +24,24 @@
 
     <!-- la parte centrale-->
     <div class="container centro">
-        <h1> Verifica! </h1>
+        <form action="" method="post">
+            <h1> Verifichiamo se... </h1>
+            <h1>Sei davvero tu?</h1>
+            <p> Scrivi qui il tuo nome: </p> <input type="text" name="nome" id="nome" value="Marco">
+            <!--
+    <button type="button" id="conferma-nome" >Conferma</button>
+-->
+            <p> <br> <br>In questa sezione, come nella precedente, dovrai scrivere una frase. Se ti capita di sbagliare a scrivere, premi il pulsante "Reset" e ricomincia da capo. <br>
+                Se farai troppi errori, ti obbligherò io a resettare. </p>
+            <p> Io ti dirò se a scrivere sei davvero tu.
+            <h4> <br> Inserisci la frase:</h4>
+            <p id="check-word"></p>
+            <input type="text" id="check-input" />
+
+            <button type="button" id="reset"> Reset </button> <br> <br>
+            <button type="button" id="prosegui"> Prosegui </button>
+        </form>
+
     </div>
 
     <!-- la parte finale-->
@@ -36,6 +53,8 @@
         </footer>
     </div>
 
+
+    <script src="verifica.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 

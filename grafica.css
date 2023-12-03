@@ -4,8 +4,6 @@
     align-items: center;
     gap: 2rem;
 }
-.centro{
-}
 h1 {
     font-size: 6vw;
     text-transform: uppercase;
@@ -28,8 +26,7 @@ input {
     padding: .5rem 1rem;
     width: 50%;
 }
-input[disabled] {
-}
+
 body {
     background: rgb(144, 0, 255);
     margin: 0;
