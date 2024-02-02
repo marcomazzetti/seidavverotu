@@ -33,29 +33,51 @@ if ($errore) {
 // Calcolo della media e della varianza
 $nuovidati = json_decode($dati, true);
 
+$differenze = array_column($nuovidati, 'diff');
+
+sort($differenze);
+
+print_r($differenze);
+
+//$differenze = array_slice($differenze, 1, -1 ); // (array, quanti toglierne a sinistra, quanti a destra)
+
+
 $somma = 0;
 $counter = 0;
 $sommatoria_varianza = 0;
 
-foreach ($nuovidati as $n) {
-    $somma += $n['diff'];
-    $counter += 1;
-}
+$somma = array_sum($differenze);
+$counter = count($differenze);
+
 
 $media = $somma / $counter;
 
-foreach ($nuovidati as $n) {
-    $sommatoria_varianza += ($n['diff'] - $media) ** 2;
+foreach ($differenze as $n) {
+    $sommatoria_varianza += ($n - $media) ** 2;
 }
 
 $varianza = $sommatoria_varianza / $counter;
+$devstd = sqrt($varianza);
+
+$differenze = array_filter($differenze, fn ($val) => ($val <= $media + $devstd) && ($val >= $media - $devstd));
+print_r($differenze);
+
+$somma = 0;
+$counter = 0;
+$sommatoria_varianza = 0;
+
+$somma = array_sum($differenze);
+$counter = count($differenze);
 
 
+$media = $somma / $counter;
 
-echo "La media è: $media ";
-echo "La varianza è: $varianza ";
-echo "Il numero di campioni è $counter ";
+foreach ($differenze as $n) {
+    $sommatoria_varianza += ($n - $media) ** 2;
+}
 
+$varianza = $sommatoria_varianza / $counter;
+$devstd = sqrt($varianza);
 
 function insertOrReplaceUtente($nome, $media, $varianza, $counter)
 {

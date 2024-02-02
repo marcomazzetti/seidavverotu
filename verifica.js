@@ -23,7 +23,18 @@ const frasi = [
     "La diseguaglianza è un problema globale che dobbiamo risolvere per costruire un mondo più giusto e sostenibile, ed è importante ricordare che dobbiamo agire tutti insieme.",
     "La violenza è una piaga che deve essere fermata e condannata, ed è importante ricordare che dobbiamo promuovere la pace e la non violenza.",
     "La guerra è un male che deve essere evitato e prevenuto, ed è importante ricordare che dobbiamo costruire un mondo basato sulla pace e sulla cooperazione.",
-    //"La pace è l'obiettivo di tutti gli esseri umani, ed è importante ricordare che dobbiamo lavorare insieme per costruirla."
+    //"La pace è l'obiettivo di tutti gli esseri umani, ed è importante ricordare che dobbiamo lavorare insieme per costruirla.",
+    "La tranquillità di una passeggiata al tramonto è impagabile.",
+    "Gli alberi si inchinano leggermente sotto il peso dei frutti maturi.",
+    "Il rumore del mare è una melodia rassicurante per chi ama la natura.",
+    "In primavera, i prati si riempiono di fiori dai colori vivaci.",
+    "Nel cuore della foresta, il silenzio è interrotto solo dal canto degli uccelli e dal fruscio delle foglie.",
+    "Attraversare un ponte sospeso regala emozioni uniche, con il vento che accarezza il viso.",
+    "I libri sono finestre che si aprono su mondi fantastici e avventure straordinarie.",
+    "Guardare le stelle durante una notte serena ci ricorda la vastità dell'universo.",
+    "Perdersi in un labirinto di stradine antiche porta alla scoperta di angoli segreti e affascinanti.",
+    "Una cena con amici, tra risate e buon cibo, è uno dei piaceri più semplici e genuini della vita.",
+    "Il suono di una cascata in mezzo alla natura è una sinfonia che lenisce lo stress quotidiano.",
   ];
   
   

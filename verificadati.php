@@ -38,7 +38,7 @@ $arraydit2 = [
 ];
 
 //i t associati quando alpha = 0.01. (a 2 code 0.02)
-$arraydit3 = [
+$arraydit2 = [
     '1' => '31.82',
     '2' => '6.96',
     '3' => '4.54',
@@ -82,7 +82,7 @@ $arraydit3 = [
 ];
 
 //i t associati quando alpha = 0.05. (a 2 code 0.10)
-$arraydit = [
+$arraydit2 = [
     '1' => '6.31',
     '2' => '2.92',
     '3' => '2.35',
@@ -111,7 +111,7 @@ $arraydit = [
 ];
 
 //i t associati quando alpha = 0.1. (a 2 code 0.20)
-$arraydit5 = [
+$arraydit = [
     '1' => '3.08',
     '2' => '1.89',
     '3' => '1.64',
@@ -145,23 +145,49 @@ $timestamp = date("Y-m-d H:i:s");
 // Calcolo della media e della varianza
 $nuovidati = json_decode($dati, true);
 
+$differenze = array_column($nuovidati, 'diff');
+
+sort($differenze);
+
+
+//$differenze = array_slice($differenze, 1, -1 ); // (array, quanti toglierne a sinistra, quanti a destra)
+
+
 $somma = 0;
 $counter = 0;
 $sommatoria_varianza = 0;
 
-foreach ($nuovidati as $n) {
-    $somma += $n['diff'];
-    $counter += 1;
-}
+$somma = array_sum($differenze);
+$counter = count($differenze);
+
 
 $media = $somma / $counter;
 
-foreach ($nuovidati as $n) {
-    $sommatoria_varianza += ($n['diff'] - $media) ** 2;
+foreach ($differenze as $n) {
+    $sommatoria_varianza += ($n - $media) ** 2;
 }
 
 $varianza = $sommatoria_varianza / $counter;
+$devstd = sqrt($varianza);
 
+$differenze = array_filter($differenze, fn ($val) => ($val <= $media + 2 * $devstd) && ($val >= $media - $devstd));
+
+$somma = 0;
+$counter = 0;
+$sommatoria_varianza = 0;
+
+$somma = array_sum($differenze);
+$counter = count($differenze);
+
+
+$media = $somma / $counter;
+
+foreach ($differenze as $n) {
+    $sommatoria_varianza += ($n - $media) ** 2;
+}
+
+$varianza = $sommatoria_varianza / $counter;
+$devstd = sqrt($varianza);
 
 
 
@@ -190,9 +216,9 @@ if ($nome_in_utenti == 0) {
     echo "La varianza dell'utente nel database è : $varianza_database ";
     echo "Il numero di campioni dell'utente nel database è $numero_campioni_database ";
 
-    $t = abs(($media-$media_database)/sqrt($varianza/$counter+$varianza_database/$numero_campioni_database));
+    $t = abs(($media - $media_database) / sqrt($varianza / $counter + $varianza_database / $numero_campioni_database));
     echo "t vale $t";
-    $gdl = $counter + $numero_campioni_database - 2; 
+    $gdl = $counter + $numero_campioni_database - 2;
     echo "I gradi di liberta sono $gdl ";
     $t_tabella = prendichiavepiccolaesistente($arraydit, $gdl);
     echo "La t nella tabella è $t_tabella ";
@@ -202,25 +228,26 @@ if ($nome_in_utenti == 0) {
     } else {
         echo "Sei davvero tu!";
     }
-
 }
 
 
- function esistenzachiaveinarray($arraydit, $chiaveinserita) {
+function esistenzachiaveinarray($arraydit, $chiaveinserita)
+{
     $result = "Esiste";
     if (!array_key_exists($chiaveinserita, $arraydit)) {
         $result = "Non esiste";
     }
     return $result;
- }
+}
 
 
- function prendichiavepiccolaesistente($arraydit, $chiaveinserita){
-    while (esistenzachiaveinarray($arraydit, $chiaveinserita) == "Non esiste"){
-        $chiaveinserita -- ;
+function prendichiavepiccolaesistente($arraydit, $chiaveinserita)
+{
+    while (esistenzachiaveinarray($arraydit, $chiaveinserita) == "Non esiste") {
+        $chiaveinserita--;
     }
     return $arraydit[$chiaveinserita];
- }
+}
 
 /*adesso devo capire come confrontare i dati
 innanzitutto calcolo la t,

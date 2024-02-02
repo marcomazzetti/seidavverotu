@@ -15,3 +15,5 @@ Se t test > t tabella, possiamo rifiutare l'idea che siano uguali.
 Nel nostro caso specifico, ci prendiamo un rischio nel dire che le persone non sono le stesse quando in realtà lo sono. Preferisco prendere un rischio grande qui (se sei tu e risulta che non sei tu, pace amen riprovi).
 
 Se t test> t tabella "Riprova, non ti riconosco!"
+
+biometric typing

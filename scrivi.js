@@ -65,6 +65,7 @@ checkInput.oninput = (e) => {    //ogni volta che viene modificato il testo
   }
   const diff = e.timeStamp - lastInput; //calcola differenza di tempo tra la pressione del tasto corrente e la pressione del tasto precedente
   diffArray.push({ diff, key: e.data }); //aggiunge  l'oggetto che contiene le informazioni sulla pressione del tasto corrente all'array diffArray.
+  //diffArray = pulisciOutlier(diffArray);
   console.log("La differenza in secondi è : " + diff / 1000 + "s", diffArray);
   lastInput = e.timeStamp; //aggiorno la variabile last input al timestamp corrente
   console.log("checkInput: ", checkInput.value);
@@ -245,6 +246,11 @@ function levenshtein(s, t) {
   }
 
   return h;
+}
+
+
+function pulisciOutlier(array){
+
 }
 //PROBLEMA ENORME! METTENDO onkeyup, se premo più cose insieme non vengono catturati entrambi gli eventi.
 /* Scherzone, il problema non è quello. Quando vengono premuti o rilasciati più tasti contemporaneamente, vengono catturati entrambi gli eventi.
