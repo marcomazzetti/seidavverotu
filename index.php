@@ -23,22 +23,43 @@
   </header>
 
   <!-- la parte centrale-->
-  <div class="container centro">
-    <h1>Sei davvero tu?</h1>
-
-    <p> "Sei davvero tu?" è un'applicazione che vuole testare se sei davvero tu a scrivere in base alla velocità con cui scrivi.<br>
-      Qua ci dovrò aggiungere una spiegazione di come funziona. </p>
-  </div>
-
-  <!-- la parte finale-->
   <div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <?php
-      include 'footer.inc.php';
-      ?>
-    </footer>
+    <form action="" method="post">
+
+      <h1>Sei davvero tu?</h1>
+
+      <p> <br>
+        "Sei davvero tu?" è un'applicazione che vuole testare se sei davvero tu a scrivere in base alla velocità con cui scrivi.
+        <br><br> Scrivi qui il tuo nome:
+      </p>
+
+      <input type="text" name="nome" id="nome" placeholder="Nome" autocomplete="off" />
+
+        <br /><br /> Inserisci la frase:
+      </p>
+
+      <p id="check-word"></p>
+
+      <div class="actions">
+        <button type="button" id="reset"> Reset </button>
+      </div>
+
+      <textarea rows="3" id="check-input" autocomplete="off"></textarea>
+
+      <p> <br> <br> Maggiori informazioni:<br>in questa sezione dovrai scrivere una frase. Se ti capita di sbagliare a scrivere potrai
+      resettare oppure continuare a scrivere, come preferisci.<br>
+        Se farai troppi errori, ti obbligherò io a resettare.<br>
+        Una volta che avrai inserito correttamente la frase, potrai continuare a scriverne altre.<br> Così facendo, le informazioni che avrò sulla
+        tua modalità di scrittura saranno sempre più precise.<br>
+        Infine, quando vuoi, puoi premere sul "Verifica" in alto a sinistra per permettermi di verificare se sei davvero tu a scrivere.
+
+    </form>
+    <div class="message"></div>
   </div>
 
+
+
+  <script src="scrivi.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 

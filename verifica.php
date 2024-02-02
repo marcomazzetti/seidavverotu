@@ -23,34 +23,28 @@
     </header>
 
     <!-- la parte centrale-->
-    <div class="container centro">
-        <form action="" method="post">
-            <h1> Verifichiamo se... </h1>
-            <h1>Sei davvero tu?</h1>
-            <p> Scrivi qui il tuo nome: </p> <input type="text" name="nome" id="nome" value="Marco">
-            <!--
-    <button type="button" id="conferma-nome" >Conferma</button>
--->
-            <p> <br> <br>In questa sezione, come nella precedente, dovrai scrivere una frase. Se ti capita di sbagliare a scrivere, premi il pulsante "Reset" e ricomincia da capo. <br>
-                Se farai troppi errori, ti obbligherò io a resettare. </p>
-            <p> Io ti dirò se a scrivere sei davvero tu.
-            <h4> <br> Inserisci la frase:</h4>
-            <p id="check-word"></p>
-            <input type="text" id="check-input" />
-
-            <button type="button" id="reset"> Reset </button> <br> <br>
-            <button type="button" id="prosegui"> Prosegui </button>
-        </form>
-
-    </div>
-
-    <!-- la parte finale-->
     <div class="container">
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-            <?php
-            include 'footer.inc.php';
-            ?>
-        </footer>
+        <form action="" method="post">
+            <h1> Verifichiamo se... <br />Sei davvero tu? </h1>
+
+            <p> <br /> <br />Scrivi qui il tuo nome: </p>
+            <input type="text" name="nome" id="nome" placeholder="Nome" autocomplete="off" />
+
+                <br /><br /> Inserisci la frase:
+            </p>
+
+            <p id="check-word"></p>
+
+            <div class="actions">
+                <button type="button" id="reset"> Reset </button>
+            </div>
+
+            <textarea rows="3" id="check-input" autocomplete="off"></textarea>
+
+            <p> <br> <br> Maggiori informazioni: <br>in questa sezione, come nella precedente, dovrai scrivere una frase.
+                <br>Io ti dirò se a scrivere sei davvero tu.
+        </form>
+        <div class="message"></div>
     </div>
 
 

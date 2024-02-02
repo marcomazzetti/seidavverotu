@@ -45,16 +45,34 @@ checkWord.innerHTML = frasee;
 
 //qui inizio a concentrarmi su cosa scrive l'utente
 let checkInput = document.querySelector('#check-input');
-
+checkInput.disabled = true;
 
 let nomeUtente = document.querySelector('#nome');
 const resetButton = document.querySelector('#reset');
-const proseguiButton = document.querySelector('#prosegui');
-proseguiButton.disabled = true;
+// const proseguiButton = document.querySelector('#prosegui');
+// proseguiButton.disabled = true;
 resetButton.disabled = true;
 
 let firstInput, lastInput, diffArray = []; //dichiaro 3 variabili
 
+const messageDiv = document.querySelector(".message");
+function sendMessage(message, background = 'green', duration = 5000) {
+  messageDiv.innerHTML = message;
+  messageDiv.style.background = background;
+  messageDiv.style.display = "block";
+  setTimeout(() => {
+    messageDiv.style.display = "none";
+  }, duration)
+}
+
+nomeUtente.value = localStorage.getItem('name')
+checkInput.disabled = !nomeUtente.value;
+
+nomeUtente.oninput = () => {
+  localStorage.setItem('name', nomeUtente.value);
+  checkInput.disabled = !nomeUtente.value;
+  resetButton.disabled = !nomeUtente.value;
+};
 
 let counter = 0; //counter di quante volte cancello
 checkInput.oninput = (e) => {    //ogni volta che viene modificato il testo
@@ -79,58 +97,71 @@ checkInput.oninput = (e) => {    //ogni volta che viene modificato il testo
   //obbligo a resettare in certi casi
   if (levenshtein(checkInput.value, checkWord.textContent.slice(0, checkInput.value.length)) > checkWord.textContent.length / 10 ||
     counter > checkWord.textContent.length / 4) {
-    checkInput.disabled = true;
+    // checkInput.disabled = true;
+    sendMessage('Troppi errori, riprovare', 'red');
+    resetPhrase();
   }
 
   if (checkWord.textContent.slice(0, checkInput.value.length) != checkInput.value) {
     checkInput.style.color = "red";
   } else {
-    checkInput.style.color = "#000"
+    checkInput.style.color = "white"
   }
-
-
-
 
   //controllo frase corretta
   if (checkInput.value === checkWord.textContent) {
-    checkInput.style.backgroundColor = 'green';
-    if (nomeUtente.textContent != null) {
-      proseguiButton.disabled = false;
+    // checkInput.style.backgroundColor = 'green';
+        //adesso devo iniziare a ragionare sull'array per poter fare la media
+        let somma = 0;
+        diffArray.shift() //questo per eliminare il primo elemento dell'array (la prima lettera che premo ha diff 0 e ciò mi fa sbagliare il calcolo della varianza)
+        for (const key of Object.keys(diffArray)) {
+          somma += diffArray[key].diff;
+        }
+        let media = somma / (diffArray.length);
+        console.log("La media in secondi è : " + media / 1000 + "s");
+    
+        let sommatoria_varianza = 0;
+        for (const key of Object.keys(diffArray)) {
+          sommatoria_varianza += (diffArray[key].diff - media) ** 2;
+        }
+        let varianza = sommatoria_varianza / (diffArray.length);
+        console.log("La varianza in secondi al quadrato è : " + varianza / 1000000 + " s^2");
+    
+    if (!!nomeUtente.value) {
+      // proseguiButton.disabled = false;
+      submitPhrase();
+      generateNewPhrase();
     }
-    checkInput.disabled = true;
-    resetButton.disabled = true;
-    resetButton.textContent = "Frase inserita correttamente!";
-    //adesso devo iniziare a ragionare sull'array per poter fare la media
-    let somma = 0;
-    diffArray.shift() //questo per eliminare il primo elemento dell'array (la prima lettera che premo ha diff 0 e ciò mi fa sbagliare il calcolo della varianza)
-    for (const key of Object.keys(diffArray)) {
-      somma += diffArray[key].diff;
-    }
-    let media = somma / (diffArray.length);
-    console.log("La media in secondi è : " + media / 1000 + "s");
-
-    let sommatoria_varianza = 0;
-    for (const key of Object.keys(diffArray)) {
-      sommatoria_varianza += (diffArray[key].diff - media) ** 2;
-    }
-    let varianza = sommatoria_varianza / (diffArray.length);
-    console.log("La varianza in secondi al quadrato è : " + varianza / 1000000 + " s^2");
+    // checkInput.disabled = true;
+    // resetButton.disabled = true;
+    // resetButton.textContent = "Frase inserita correttamente!";
 
   }
 }
 
-// Quando si preme il bottone "Reset!",
-resetButton.addEventListener('click', () => {
+
+function resetPhrase() {
   diffArray = []; //questo va bene 
   checkInput.value = '';
   firstInput = null;
   checkInput.disabled = false;
   counter = 0;
 
+}
+function generateNewPhrase() {
+  resetPhrase();
+  const frasee = frasi[Math.floor(Math.random() * frasi.length)].toLowerCase();
+  checkWord.innerHTML = frasee;
+}
+
+// Quando si preme il bottone "Reset!",
+resetButton.addEventListener('click', () => {
+  generateNewPhrase();
+
   /*window.location = 'verifica.php';*/
 })
 
-proseguiButton.addEventListener('click', () => {
+function submitPhrase() {
   let nome = nomeUtente.value;
   let dati = diffArray;
   async function postData(url = "", data = {}) {
@@ -144,12 +175,18 @@ proseguiButton.addEventListener('click', () => {
     return response.text(); // parses JSON response into native JavaScript objects
   }
 
-  postData("inseriscidati.php", { nome: nome, dati: dati }).then((data) => {
-    alert(data); // JSON data parsed by `data.json()` call
-  });
+  postData("inseriscidati.php", { nome: nome, dati: dati })
+    .then((data) => {
+      sendMessage(data);
+      console.log(data)
+      // alert(data); // JSON data parsed by `data.json()` call
+    });
 
+}
 
-})
+// proseguiButton.addEventListener('click', () => {
+//   submitPhrase();
+// })
 
 function levenshtein(s, t) {
   if (s === t) {
@@ -249,7 +286,7 @@ function levenshtein(s, t) {
 }
 
 
-function pulisciOutlier(array){
+function pulisciOutlier(array) {
 
 }
 //PROBLEMA ENORME! METTENDO onkeyup, se premo più cose insieme non vengono catturati entrambi gli eventi.

@@ -200,28 +200,28 @@ $result = $database->query($q_contautenti);
 $nome_in_utenti = $result->fetch_assoc()["nome_in_utenti"];
 
 if ($nome_in_utenti == 0) {
-    echo "errore";
+    echo "Non ho dati riguardanti la persona che hai scritto.";
 } else {
     $q_estrapolazione = "SELECT media, varianza, numero_campioni FROM utenti WHERE nome_utente = '$nome'";
     $result = $database->query($q_estrapolazione);
     $dati_utente = $result->fetch_assoc();
-    print_r($dati_utente);
-    echo "La media inserita è: $media ";
-    echo "La varianza è inserita: $varianza ";
-    echo "Il numero di campioni inserito è $counter ";
+    // print_r($dati_utente);
+    // echo "La media inserita è: $media ";
+    // echo "La varianza è inserita: $varianza ";
+    // echo "Il numero di campioni inserito è $counter ";
     $media_database = $dati_utente['media'];
     $varianza_database = $dati_utente['varianza'];
     $numero_campioni_database = $dati_utente['numero_campioni'];
-    echo "La media dell'utente nel database è: $media_database ";
-    echo "La varianza dell'utente nel database è : $varianza_database ";
-    echo "Il numero di campioni dell'utente nel database è $numero_campioni_database ";
+    // echo "La media dell'utente nel database è: $media_database ";
+    // echo "La varianza dell'utente nel database è : $varianza_database ";
+    // echo "Il numero di campioni dell'utente nel database è $numero_campioni_database ";
 
     $t = abs(($media - $media_database) / sqrt($varianza / $counter + $varianza_database / $numero_campioni_database));
-    echo "t vale $t";
+    // echo "t vale $t";
     $gdl = $counter + $numero_campioni_database - 2;
-    echo "I gradi di liberta sono $gdl ";
+    // echo "I gradi di liberta sono $gdl ";
     $t_tabella = prendichiavepiccolaesistente($arraydit, $gdl);
-    echo "La t nella tabella è $t_tabella ";
+    // echo "La t nella tabella è $t_tabella ";
 
     if ($t_tabella < $t) {
         echo "Riprova! Non sei tu";

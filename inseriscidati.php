@@ -19,9 +19,9 @@ $risultato = mysqli_query($database, $query);
 
 // Controllo del risultato
 if ($risultato) {
-    echo "Inserimento avvenuto correttamente";
+    echo "Inserimento avvenuto correttamente!";
 } else {
-    echo "Inserimento non eseguito";
+    echo "Inserimento non eseguito.";
 }
 
 $errore = mysqli_error($database);
@@ -37,7 +37,7 @@ $differenze = array_column($nuovidati, 'diff');
 
 sort($differenze);
 
-print_r($differenze);
+// print_r($differenze);
 
 //$differenze = array_slice($differenze, 1, -1 ); // (array, quanti toglierne a sinistra, quanti a destra)
 
@@ -60,7 +60,7 @@ $varianza = $sommatoria_varianza / $counter;
 $devstd = sqrt($varianza);
 
 $differenze = array_filter($differenze, fn ($val) => ($val <= $media + $devstd) && ($val >= $media - $devstd));
-print_r($differenze);
+// print_r($differenze);
 
 $somma = 0;
 $counter = 0;
@@ -94,10 +94,10 @@ function insertOrReplaceUtente($nome, $media, $varianza, $counter)
     if ($nome_in_utenti == 0) {
         // $nome non esiste già nella tabella, quindi inseriscilo
         insertUtente($nome, $media, $varianza, $counter);
-        echo "inserisci";
+        // echo "inserisci";
     } else {
         // $nome esiste già nella tabella, quindi fai il replace
-        echo "modifica";
+        // echo "modifica";
         replaceUtente($nome, $media, $varianza, $counter);
     }
 
@@ -137,7 +137,7 @@ function replaceUtente($nome, $media, $varianza, $counter)
 
     $mysqli = new mysqli("localhost", "root", "root", "seidavverotu");
     $mysqli->query($sql);
-    echo "devo fare replace!";
+    // echo "devo fare replace!";
 }
 // Inserimento o sostituzione delle informazioni dell'utente nella tabella "utenti"
 insertOrReplaceUtente($nome, $media, $varianza, $counter);
