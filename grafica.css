@@ -63,8 +63,8 @@ button{
     color: black;
     border-radius: .5rem;
     padding: 0.3rem 0.8rem;
-    transition: background-color 0.4s, color 0.4s;
 }
+
 button[disabled] {
     opacity: .5;
     cursor: not-allowed;
@@ -76,7 +76,7 @@ button[disabled] {
     left: 50%;
     transform: translateX(-50%);
     width: 24rem;
-    background: green;
+    background: blue;
     border-radius: .5rem;
     padding: 1rem;
     display: none;

@@ -56,7 +56,7 @@ function sendMessage(message, background = 'green', duration = 5000) {
 }
 
 nomeUtente.value = localStorage.getItem('name')
-checkInput.disabled = !nomeUtente.value;
+checkInput.disabled = !nomeUtente.value; //non permette di scrivere la frase se non hai scritto il nome
 
 nomeUtente.oninput = () => {
   localStorage.setItem('name', nomeUtente.value);
@@ -64,7 +64,7 @@ nomeUtente.oninput = () => {
   resetButton.disabled = !nomeUtente.value;
 };
 
-let counter = 0; //counter di quante volte cancello
+let cancCounter = 0; //counter di quante volte cancello
 checkInput.oninput = (e) => {    //ogni volta che viene modificato il testo
   if (!firstInput) { //se first input non ha un valore (cioè se è la prima volta che lo premo)
     firstInput = e.timeStamp; //first input diventa quello che viene ascoltato
@@ -81,13 +81,12 @@ checkInput.oninput = (e) => {    //ogni volta che viene modificato il testo
   console.log(checkWord.textContent.slice(0, checkInput.value.length));
 
   if (e.data == null) { //ogni volta che cancello aumento il counter
-    counter += 1
+    cancCounter += 1
   }
 
   //obbligo a resettare in certi casi
   if (levenshtein(checkInput.value, checkWord.textContent.slice(0, checkInput.value.length)) > checkWord.textContent.length / 10 ||
-    counter > checkWord.textContent.length / 4) {
-    // checkInput.disabled = true;
+    cancCounter > checkWord.textContent.length / 4) {
     sendMessage('Troppi errori, riprovare', 'red');
     resetPhrase();
   }
@@ -100,8 +99,6 @@ checkInput.oninput = (e) => {    //ogni volta che viene modificato il testo
 
   //controllo frase corretta
   if (checkInput.value === checkWord.textContent) {
-    // checkInput.style.backgroundColor = 'green';
-        //adesso devo iniziare a ragionare sull'array per poter fare la media
         let somma = 0;
         diffArray.shift() //questo per eliminare il primo elemento dell'array (la prima lettera che premo ha diff 0 e ciò mi fa sbagliare il calcolo della varianza)
         for (const key of Object.keys(diffArray)) {
@@ -135,7 +132,7 @@ function resetPhrase() {
   checkInput.value = '';
   firstInput = null;
   checkInput.disabled = false;
-  counter = 0;
+  cancCounter = 0;
 
 }
 function generateNewPhrase() {
@@ -174,14 +171,10 @@ function submitPhrase() {
       const returnMessage = JSON.parse(data);
       sendMessage(returnMessage.message, returnMessage.color, returnMessage.time);
       console.log(returnMessage.console);
-      // alert(data); // JSON data parsed by `data.json()` call
     });
 
 }
 
-// proseguiButton.addEventListener('click', () => {
-//   submitPhrase();
-// })
 
 function levenshtein(s, t) {
   if (s === t) {
@@ -281,9 +274,10 @@ function levenshtein(s, t) {
 }
 
 
-function pulisciOutlier(array) {
+// function pulisciOutlier(array) {
 
-}
+// }
+
 //PROBLEMA ENORME! METTENDO onkeyup, se premo più cose insieme non vengono catturati entrambi gli eventi.
 /* Scherzone, il problema non è quello. Quando vengono premuti o rilasciati più tasti contemporaneamente, vengono catturati entrambi gli eventi.
 L'unico problema è quando succede alla fine della frase, infatti può capitare questo fatto:
