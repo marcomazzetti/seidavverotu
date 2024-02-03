@@ -44,7 +44,7 @@
         <button type="button" id="reset"> Reset </button>
       </div>
 
-      <textarea rows="3" id="check-input" autocomplete="off"></textarea>
+      <textarea rows="3" id="check-input" autocomplete="off" data-inserisci="true"></textarea>
 
       <p> <br> <br> Maggiori informazioni:<br>in questa sezione dovrai scrivere una frase. Se ti capita di sbagliare a scrivere potrai
       resettare oppure continuare a scrivere, come preferisci.<br>
@@ -59,7 +59,7 @@
 
 
 
-  <script src="scrivi.js"></script>
+  <script src="main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 

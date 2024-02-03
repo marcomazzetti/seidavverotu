@@ -1,41 +1,12 @@
 <?php
 
 //mi creo un array chiave-valore con a sinistra i gradi di libertà e a destra
-//i t associati quando alpha = 0.025. (a 2 code 0.05)
-$arraydit2 = [
-    '1' => '12.71',
-    '2' => '4.30',
-    '3' => '3.18',
-    '4' => '2.78',
-    '5' => '2.57',
-    '6' => '2.45',
-    '7' => '2.36',
-    '8' => '2.31',
-    '9' => '2.26',
-    '10' => '2.23',
-    '11' => '2.20',
-    '12' => '2.18',
-    '13' => '2.16',
-    '14' => '2.14',
-    '15' => '2.13',
-    '16' => '2.12',
-    '17' => '2.11',
-    '18' => '2.10',
-    '19' => '2.09',
-    '21' => '2.08',
-    '22' => '2.07',
-    '24' => '2.06',
-    '27' => '2.05',
-    '30' => '2.04',
-    '33' => '2.03',
-    '38' => '2.02',
-    '45' => '2.01',
-    '54' => '2.00',
-    '69' => '1.99',
-    '100' => '1.98',
-    '160' => '1.97',
-    '1000' => '1.96'
-];
+// ne creo un po' e poi scelgo quale utilizzare in base a quanto voglio essere stringente
+//sono scritti in ordine, il primo che ho scritto è quello meno stringente (ti riconosce più spesso ma c'è più 
+// rischio che ti riconosca anche quando non sei tu)
+// l'ultimo che ho scritto è quello più stringente (ti riconosce poche volte ma
+// c'è meno rischio che ti riconosca quando non sei tu)
+//quello utilizzato è $arraydit mentre $arraydit2 no
 
 //i t associati quando alpha = 0.01. (a 2 code 0.02)
 $arraydit2 = [
@@ -81,8 +52,45 @@ $arraydit2 = [
     '1000' => '2.33'
 ];
 
-//i t associati quando alpha = 0.05. (a 2 code 0.10)
+//i t associati quando alpha = 0.025. (a 2 code 0.05)
 $arraydit2 = [
+    '1' => '12.71',
+    '2' => '4.30',
+    '3' => '3.18',
+    '4' => '2.78',
+    '5' => '2.57',
+    '6' => '2.45',
+    '7' => '2.36',
+    '8' => '2.31',
+    '9' => '2.26',
+    '10' => '2.23',
+    '11' => '2.20',
+    '12' => '2.18',
+    '13' => '2.16',
+    '14' => '2.14',
+    '15' => '2.13',
+    '16' => '2.12',
+    '17' => '2.11',
+    '18' => '2.10',
+    '19' => '2.09',
+    '21' => '2.08',
+    '22' => '2.07',
+    '24' => '2.06',
+    '27' => '2.05',
+    '30' => '2.04',
+    '33' => '2.03',
+    '38' => '2.02',
+    '45' => '2.01',
+    '54' => '2.00',
+    '69' => '1.99',
+    '100' => '1.98',
+    '160' => '1.97',
+    '1000' => '1.96'
+];
+
+
+//i t associati quando alpha = 0.05. (a 2 code 0.10)
+$arraydit = [
     '1' => '6.31',
     '2' => '2.92',
     '3' => '2.35',
@@ -111,7 +119,7 @@ $arraydit2 = [
 ];
 
 //i t associati quando alpha = 0.1. (a 2 code 0.20)
-$arraydit = [
+$arraydit2 = [
     '1' => '3.08',
     '2' => '1.89',
     '3' => '1.64',
@@ -170,7 +178,7 @@ foreach ($differenze as $n) {
 $varianza = $sommatoria_varianza / $counter;
 $devstd = sqrt($varianza);
 
-$differenze = array_filter($differenze, fn ($val) => ($val <= $media + 2 * $devstd) && ($val >= $media - $devstd));
+$differenze = array_filter($differenze, fn ($val) => ($val <= $media +  2*$devstd) && ($val >= $media - $devstd));
 
 $somma = 0;
 $counter = 0;
@@ -199,35 +207,47 @@ $result = $database->query($q_contautenti);
 
 $nome_in_utenti = $result->fetch_assoc()["nome_in_utenti"];
 
+$returnMessage = new stdClass();
+$returnMessage->console = "";
+
 if ($nome_in_utenti == 0) {
-    echo "Non ho dati riguardanti la persona che hai scritto.";
+    $returnMessage->message = "Non ho dati riguardanti la persona che hai scritto.";
+    $returnMessage->console = "Non ho dati riguardanti la persona che hai scritto.";
+    $returnMessage->color = "red";
+    echo json_encode($returnMessage);
 } else {
     $q_estrapolazione = "SELECT media, varianza, numero_campioni FROM utenti WHERE nome_utente = '$nome'";
     $result = $database->query($q_estrapolazione);
     $dati_utente = $result->fetch_assoc();
     // print_r($dati_utente);
-    // echo "La media inserita è: $media ";
-    // echo "La varianza è inserita: $varianza ";
-    // echo "Il numero di campioni inserito è $counter ";
+    $returnMessage->console .= "La media inserita è: $media ";
+    $returnMessage->console .= "\nLa varianza è inserita: $varianza ";
+    $returnMessage->console .= "\nIl numero di campioni inserito è $counter ";
     $media_database = $dati_utente['media'];
     $varianza_database = $dati_utente['varianza'];
     $numero_campioni_database = $dati_utente['numero_campioni'];
-    // echo "La media dell'utente nel database è: $media_database ";
-    // echo "La varianza dell'utente nel database è : $varianza_database ";
-    // echo "Il numero di campioni dell'utente nel database è $numero_campioni_database ";
+    $returnMessage->console .= "\nLa media dell'utente nel database è: $media_database ";
+    $returnMessage->console .= "\nLa varianza dell'utente nel database è : $varianza_database ";
+    $returnMessage->console .= "\nIl numero di campioni dell'utente nel database è $numero_campioni_database ";
 
     $t = abs(($media - $media_database) / sqrt($varianza / $counter + $varianza_database / $numero_campioni_database));
-    // echo "t vale $t";
+    $returnMessage->console .= "\nt vale $t";
     $gdl = $counter + $numero_campioni_database - 2;
-    // echo "I gradi di liberta sono $gdl ";
+    $returnMessage->console .= "\nI gradi di liberta sono $gdl ";
     $t_tabella = prendichiavepiccolaesistente($arraydit, $gdl);
-    // echo "La t nella tabella è $t_tabella ";
+    $returnMessage->console .= "\nLa t nella tabella è $t_tabella ";
 
     if ($t_tabella < $t) {
-        echo "Riprova! Non sei tu";
+        $returnMessage->message = "Riprova! Non sei tu";
+        $returnMessage->color = "red";
+        $returnMessage->time = 3000;
     } else {
-        echo "Sei davvero tu!";
+        $returnMessage->message = "Sei davvero tu!";
+        $returnMessage->color = "green";
+        $returnMessage->time = 10000;
     }
+
+    echo json_encode($returnMessage);
 }
 
 

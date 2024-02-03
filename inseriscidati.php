@@ -1,5 +1,8 @@
 <?php
 
+$returnMessage = new stdClass();
+$returnMessage->console = "";
+
 // Connessione al database
 
 $database = mysqli_connect("localhost", "root", "root", "seidavverotu");
@@ -19,15 +22,18 @@ $risultato = mysqli_query($database, $query);
 
 // Controllo del risultato
 if ($risultato) {
-    echo "Inserimento avvenuto correttamente!";
+    $returnMessage->message = "Inserimento avvenuto correttamente!";
+    $returnMessage->color = "green";
 } else {
-    echo "Inserimento non eseguito.";
+    $returnMessage->message = "Inserimento non eseguito.";
+    $returnMessage->color = "red";
 }
 
 $errore = mysqli_error($database);
 
 if ($errore) {
-    echo "Errore: $errore";
+    $returnMessage->message = "Errore: $errore";
+    $returnMessage->color = "red";
 }
 
 // Calcolo della media e della varianza
@@ -59,7 +65,7 @@ foreach ($differenze as $n) {
 $varianza = $sommatoria_varianza / $counter;
 $devstd = sqrt($varianza);
 
-$differenze = array_filter($differenze, fn ($val) => ($val <= $media + $devstd) && ($val >= $media - $devstd));
+$differenze = array_filter($differenze, fn ($val) => ($val <= $media + 2*$devstd) && ($val >= $media - $devstd));
 // print_r($differenze);
 
 $somma = 0;
@@ -144,6 +150,8 @@ insertOrReplaceUtente($nome, $media, $varianza, $counter);
 
 // Chiusura della connessione
 mysqli_close($database);
+
+echo json_encode($returnMessage);
 
 
 
